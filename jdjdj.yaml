@@ -1,0 +1,541 @@
+openapi: 3.0.3
+info:
+  title: Project Management API
+  version: 1.0.0
+  description: API for managing student and teacher accounts, and project submissions.
+paths:
+  /api/v1/users/:
+    post:
+      summary: Create a new user (student or teacher)
+      description: Registers a new user in the system.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: "Cerlo Henrique Matavel"
+                student_number:
+                  type: integer
+                  example: 4264
+                username:
+                  type: string
+                  example: "cerlo.matavel"
+                email:
+                  type: string
+                  example: "cerlomatavel@gmail.com"
+                password:
+                  type: string
+                  example: "cerlomamama"
+                course:
+                  type: string
+                  example: "LEIT"
+                role:
+                  type: string
+                  example: "student"
+            examples:
+              student:
+                value:
+                  name: "Cerlo Henrique Matavel"
+                  student_number: 4264
+                  username: "cerlo.matavel"
+                  email: "cerlomatavel@gmail.com"
+                  password: "cerlomamama"
+                  course: "LEIT"
+                  role: "student"
+              teacher:
+                value:
+                  name: "Cerlo Henrique Matavel"
+                  username: "cerlo.matavel"
+                  email: "cerlomatavel@gmail.com"
+                  password: "cerlomamama"
+                  courses:
+                    - course: "LEIT"
+                    - course: "LEMEC"
+                    - course: "LEET"
+                  role: "teacher"
+      responses:
+        '201':
+          description: User created successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+                    example: "nuovrbanoigb843bg9w7bvsd924ewui97qeq9v9e7qbueq9dauivi"
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Campo(s) X não foram devidamente preenchido(s)"
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Esse usuário já existe. Escolha outro nome."
+
+  /api/v1/auth/login:
+    post:
+      summary: Authenticate a teacher
+      description: Logs in a teacher and provides access to the system.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                  example: "cerlo.matavel"
+                password:
+                  type: string
+                  example: "cerlomamama"
+      responses:
+        '200':
+          description: Authentication successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+                    example: "nuovrbanoigb843bg9w7bvsd924ewui97qeq9v9e7qbueq9dauivi"
+
+  /api/v1/auth:
+    post:
+      summary: Authenticate a student
+      description: Logs in a student and provides access to the system.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                  example: "cerlo.matavel"
+                password:
+                  type: string
+                  example: "cerlomamama"
+      responses:
+        '200':
+          description: Authentication successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+                    example: "nuovrbanoigb843bg9w7bvsd924ewui97qeq9v9e7qbueq9dauivi"
+
+  /api/v1/projects/:
+    post:
+      summary: Create a new project
+      description: Allows a student to create a new project.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                theme:
+                  type: string
+                  example: "O Desenvolvimento de Sistemas de Informação em Saúde"
+                general_objective:
+                  type: string
+                  example: "Desenvolver um sistema de informação para a gestão de dados de pacientes."
+                specific_objective:
+                  type: string
+                  example: "1. Implementar uma base de dados segura. 2. Criar uma interface de usuário amigável. 3. Integrar com sistemas existentes."
+                problem:
+                  type: string
+                  example: "Como pode um sistema de informação melhorar a gestão de dados de pacientes em hospitais?"
+            examples:
+              project:
+                value:
+                  theme: "O Desenvolvimento de Sistemas de Informação em Saúde"
+                  general_objective: "Desenvolver um sistema de informação para a gestão de dados de pacientes."
+                  specific_objective: "1. Implementar uma base de dados segura. 2. Criar uma interface de usuário amigável. 3. Integrar com sistemas existentes."
+                  problem: "Como pode um sistema de informação melhorar a gestão de dados de pacientes em hospitais?"
+      responses:
+        '201':
+          description: Project created successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  projectId:
+                    type: string
+                    example: "123e4567-e89b-12d3-a456-426655440000"
+
+  /api/v1/projects/{projectId}:
+    patch:
+      summary: Update a project
+      description: Allows updating details of an existing project.
+      parameters:
+        - name: projectId
+          in: path
+          required: true
+          schema:
+            type: string
+            example: "123e4567-e89b-12d3-a456-426655440000"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                theme:
+                  type: string
+                  example: "O Desenvolvimento de Sistemas de Informação em Saúde"
+                general_objective:
+                  type: string
+                  example: "Desenvolver um sistema de informação para a gestão de dados de pacientes."
+                specific_objective:
+                  type: string
+                  example: "1. Implementar uma base de dados segura. 2. Criar uma interface de usuário amigável. 3. Integrar com sistemas existentes."
+                problem:
+                  type: string
+                  example: "Como pode um sistema de informação melhorar a gestão de dados de pacientes em hospitais?"
+            examples:
+              project:
+                value:
+                  theme: "O Desenvolvimento de Sistemas de Informação em Saúde"
+                  general_objective: "Desenvolver um sistema de informação para a gestão de dados de pacientes."
+                  specific_objective: "1. Implementar uma base de dados segura. 2. Criar uma interface de usuário amigável. 3. Integrar com sistemas existentes."
+                  problem: "Como pode um sistema de informação melhorar a gestão de dados de pacientes em hospitais?"
+      responses:
+        '201':
+          description: Project updated successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  project:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        example: "123e4567-e89b-12d3-a456-426655440000"
+                      theme:
+                        type: string
+                        example: "O Desenvolvimento de Sistemas de Informação em Saúde"
+                      general_objective:
+                        type: string
+                        example: "Desenvolver um sistema de informação para a gestão de dados de pacientes."
+                      specific_objective:
+                        type: string
+                        example: "1. Implementar uma base de dados segura. 2. Criar uma interface de usuário amigável. 3. Integrar com sistemas existentes."
+                      problem:
+                        type: string
+                        example: "Como pode um sistema de informação melhorar a gestão de dados de pacientes em hospitais?"
+                      state:
+                        type: string
+                        example: "Submetido"
+                      time_submitted:
+                        type: string
+                        format: date-time
+                        example: "2024-07-23T14:30:00"
+
+    delete:
+      summary: Delete a project
+      description: Deletes a project from the system.
+      parameters:
+        - name: projectId
+          in: path
+          required: true
+          schema:
+            type: string
+            example: "123e4567-e89b-12d3-a456-426655440000"
+      responses:
+        '200':
+          description: Project deleted successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Projecto eliminado"
+
+    get:
+      summary: Get project details
+      description: Retrieves details of a specific project.
+      parameters:
+        - name: projectId
+          in: path
+          required: true
+          schema:
+            type: string
+            example: "123e4567-e89b-12d3-a456-426655440000"
+      responses:
+        '200':
+          description: Project details retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  project:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        example: "123e4567-e89b-12d3-a456-426655440000"
+                      theme:
+                        type: string
+                        example: "O Desenvolvimento de Sistemas de Informação em Saúde"
+                      general_objective:
+                        type: string
+                        example: "Desenvolver um sistema de informação para a gestão de dados de pacientes."
+                      specific_objective:
+                        type: string
+                        example: "1. Implementar uma base de dados segura. 2. Criar uma interface de usuário amigável. 3. Integrar com sistemas existentes."
+                      problem:
+                        type: string
+                        example: "Como pode um sistema de informação melhorar a gestão de dados de pacientes em hospitais?"
+                      state:
+                        type: string
+                        example: "Submetido"
+                      time_submitted:
+                        type: string
+                        format: date-time
+                        example: "2024-07-23T14:30:00"
+                      time_evaluated:
+                        type: string
+                        format: date-time
+                        example: "2024-07-24T10:00:00"
+                      comment:
+                        type: string
+                        example: "Bom trabalho, mas precisa de algumas melhorias."
+
+  /api/v1/projects:
+    get:
+      summary: List projects
+      description: Retrieves a paginated list of all projects.
+      parameters:
+        - name: pagenr
+          in: query
+          required: true
+          schema:
+            type: integer
+            example: 1
+        - name: psize
+          in: query
+          required: true
+          schema:
+            type: integer
+            example: 10
+      responses:
+        '200':
+          description: List of projects
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  pageNumber:
+                    type: integer
+                    example: 1
+                  pageSize:
+                    type: integer
+                    example: 10
+                  totalPages:
+                    type: integer
+                    example: 5
+                  totalItems:
+                    type: integer
+                    example: 50
+                  projects:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          example: "123e4567-e89b-12d3-a456-426655440000"
+                        theme:
+                          type: string
+                          example: "O Desenvolvimento de Sistemas de Informação em Saúde"
+                        general_objective:
+                          type: string
+                          example: "Desenvolver um sistema de informação para a gestão de dados de pacientes."
+                        specific_objective:
+                          type: string
+                          example: "1. Implementar uma base de dados segura. 2. Criar uma interface de usuário amigável. 3. Integrar com sistemas existentes."
+                        problem:
+                          type: string
+                          example: "Como pode um sistema de informação melhorar a gestão de dados de pacientes em hospitais?"
+                        state:
+                          type: string
+                          example: "Submetido"
+                        time_submitted:
+                          type: string
+                          format: date-time
+                          example: "2024-07-23T14:30:00"
+
+  /api/v1/project:
+    get:
+      summary: List projects by course
+      description: Retrieves a paginated list of projects associated with a specific course.
+      parameters:
+        - name: course
+          in: query
+          required: true
+          schema:
+            type: string
+            example: "LEIT"
+        - name: pagenr
+          in: query
+          required: true
+          schema:
+            type: integer
+            example: 1
+        - name: psize
+          in: query
+          required: true
+          schema:
+            type: integer
+            example: 10
+      responses:
+        '200':
+          description: List of projects by course
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  pageNumber:
+                    type: integer
+                    example: 1
+                  pageSize:
+                    type: integer
+                    example: 10
+                  totalPages:
+                    type: integer
+                    example: 5
+                  totalItems:
+                    type: integer
+                    example: 30
+                  projects:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          example: "123e4567-e89b-12d3-a456-426655440000"
+                        theme:
+                          type: string
+                          example: "O Desenvolvimento de Sistemas de Informação em Saúde"
+                        general_objective:
+                          type: string
+                          example: "Desenvolver um sistema de informação para a gestão de dados de pacientes."
+                        specific_objective:
+                          type: string
+                          example: "1. Implementar uma base de dados segura. 2. Criar uma interface de usuário amigável. 3. Integrar com sistemas existentes."
+                        problem:
+                          type: string
+                          example: "Como pode um sistema de informação melhorar a gestão de dados de pacientes em hospitais?"
+                        state:
+                          type: string
+                          example: "Submetido"
+                        time_submitted:
+                          type: string
+                          format: date-time
+                          example: "2024-07-23T14:30:00"
+
+  /api/v1/project:
+    get:
+      summary: List projects by theme
+      description: Retrieves a paginated list of projects based on a specific theme or keyword.
+      parameters:
+        - name: theme
+          in: query
+          required: true
+          schema:
+            type: string
+            example: "Informação em Saúde"
+        - name: pagenr
+          in: query
+          required: true
+          schema:
+            type: integer
+            example: 1
+        - name: psize
+          in: query
+          required: true
+          schema:
+            type: integer
+            example: 10
+      responses:
+        '200':
+          description: List of projects by theme
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  pageNumber:
+                    type: integer
+                    example: 1
+                  pageSize:
+                    type: integer
+                    example: 10
+                  totalPages:
+                    type: integer
+                    example: 3
+                  totalItems:
+                    type: integer
+                    example: 15
+                  projects:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          example: "123e4567-e89b-12d3-a456-426655440000"
+                        theme:
+                          type: string
+                          example: "O Desenvolvimento de Sistemas de Informação em Saúde"
+                        general_objective:
+                          type: string
+                          example: "Desenvolver um sistema de informação para a gestão de dados de pacientes."
+                        specific_objective:
+                          type: string
+                          example: "1. Implementar uma base de dados segura. 2. Criar uma interface de usuário amigável. 3. Integrar com sistemas existentes."
+                        problem:
+                          type: string
+                          example: "Como pode um sistema de informação melhorar a gestão de dados de pacientes em hospitais?"
+                        state:
+                          type: string
+                          example: "Submetido"
+                        time_submitted:
+                          type: string
+                          format: date-time
+                          example: "2024-07-23T14:30:00"
