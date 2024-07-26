@@ -1,4 +1,8 @@
 # ROCKS_TEMAS
+
+## ⚙️API Specification💻🖱️
+> 🔗🔗[Clique aqui para acecder a documentação da API](https://painted-phone-979.notion.site/rocks-temas-API-ee2c137b1bc94c59a17fe5aef4ce1953)
+
 ## Requisitos/Problemas a resolver
 > ## Foco na apresentação dos temas de forma organizada
 > * Submeter temas
