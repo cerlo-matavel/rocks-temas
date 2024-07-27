@@ -9,10 +9,10 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>org.xebec</groupId>
-    <artifactId>rocks_crud</artifactId>
+    <artifactId>rocks_temas</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>rocks_crud</name>
-    <description>rocks_crud</description>
+    <name>rocks_temas</name>
+    <description>rocks_temas</description>
     <url/>
     <licenses>
         <license/>

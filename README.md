@@ -64,7 +64,7 @@ Tanto o docente como o estudante, deverão se cadastrar na plataforma, de modo a
 
 * **ESTUDANTE**
     * Nome: String
-    * Número de estudante: Long
+    * Número de estudante: int
     * Curso: String
     * Email: String
 
@@ -83,7 +83,7 @@ Tanto o docente como o estudante, deverão se cadastrar na plataforma, de modo a
     * Nome: String
 
 ## DIAGRAMA DA BASE DE DADOS
-![Alt Text](rocks_temas.png)
+![Alt Text](rocks_temas.jpg)
 
 ## Funcionalidades
 # Sumário de Features
