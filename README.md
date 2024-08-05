@@ -98,13 +98,10 @@ Tanto o docente como o estudante, deverão se cadastrar na plataforma, de modo a
 | 6     | **Apagar projecto**               | Permite a exclusão de um projeto do sistema, removendo todos os seus dados associados.                       |
 | 7     | **Ver projecto**                  | Permite visualizar os detalhes de um projeto específico, incluindo título, objectivo geral, específicos, pergunta de pesquisa e todos os outros dados. |
 | 8     | **Listar projectos**              | Fornece uma lista de todos os projetos disponíveis no sistema por ordem de submissão (horário de submissão). |
-| 9    | **Listar projectos por curso**    | Mostra uma lista de projetos associados a um curso específico, permitindo aos usuários ver todos os projetos. |
-| 10    | **Listar projecto por tema**      | Permite que os usuários visualizem projetos baseados em um tema ou palavra-chave específica (uma palavra que faz parte do tema). |
-| 11    | **Listar projectos por estado de avaliação** | Fornece uma lista de projetos filtrados pelo estado de avaliação, como "Submitted", "Aproved" ou "Rejected". |
-| 12    | **Listar projectos por nome do estudante** | Permite a filtragem de projetos com base no nome do estudante, exibindo todos os projetos associados a esse estudante. |
-| 13    | **Listar projectos por número de estudante** | Permite a filtragem de projetos com base no número do estudante, exibindo todos os projetos associados a esse estudante. |
-| 14    | **Submeter parecer do departamento** | O comentário, estado de avaliação e horário de avaliação. Este último será gerado no servidor.               |
-| 15    | **Alterar comentário e avaliação** | Permite a modificação de comentários e avaliações feitas anteriormente sobre um projeto.                   |
+| 9     | **Listar projectos por curso**    | Mostra uma lista de projetos associados a um curso específico, permitindo aos usuários ver todos os projetos. |
+| 10    | **Listar projectos por estado de avaliação** | Fornece uma lista de projetos filtrados pelo estado de avaliação, como "Submitted", "Aproved" ou "Rejected". |
+| 11    | **Listar projectos por nome do estudante** | Permite a filtragem de projetos com base no nome do estudante, exibindo todos os projetos associados a esse estudante. |
+| 12    | **Avaliar aluno** | Permite a modificação de comentários e avaliações feitas anteriormente sobre um projeto.                   |
 
 
 
